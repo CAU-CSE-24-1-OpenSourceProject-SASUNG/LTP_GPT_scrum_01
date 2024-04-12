@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # LTP_GPT_scrum_01
 
 ```bash
@@ -21,3 +22,6 @@ OPENAI_API_KEY=sk-...
 
 uvicorn main:app --reload
 ```
+=======
+# SQLalchemyTest
+>>>>>>> 8a22fba (Initial commit)
