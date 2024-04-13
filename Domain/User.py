@@ -1,6 +1,6 @@
 from sqlalchemy import false
 
-from alchemyTest import *
+from Init import *
 
 
 class User(Base):

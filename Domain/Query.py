@@ -1,6 +1,6 @@
 from sqlalchemy import Boolean, false
 
-from alchemyTest import *
+from Init import *
 
 
 class Query(Base):

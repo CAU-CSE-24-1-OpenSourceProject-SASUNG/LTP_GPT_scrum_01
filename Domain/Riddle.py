@@ -1,6 +1,6 @@
 from sqlalchemy import Float
 
-from alchemyTest import *
+from Init import *
 
 class Riddle(Base):
     __tablename__ = 'riddles'

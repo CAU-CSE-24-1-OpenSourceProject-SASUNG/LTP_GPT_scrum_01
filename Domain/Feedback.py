@@ -1,4 +1,4 @@
-from alchemyTest import *
+from Init import *
 
 class Feedback(Base):
     __tablename__ = "feedbacks"

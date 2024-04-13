@@ -1,4 +1,4 @@
-from alchemyTest import *
+from Init import *
 
 class Game_Query(Base):
     __tablename__ = "game_queries"

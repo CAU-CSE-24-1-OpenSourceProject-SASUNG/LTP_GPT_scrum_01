@@ -1,6 +1,6 @@
 from sqlalchemy import Boolean, Time, false
 
-from alchemyTest import *
+from Init import *
 
 class Game(Base):
     __tablename__ = 'games'
