@@ -17,6 +17,12 @@ class FeedbackService:
     def get_all_feedback(self):
         return self.session.query(Feedback).all()
 
+    def update_feedback(self, query_id, content):
+        feedback = self.get_feedback(query_id)
+        if feedback:
+            feedback.content = content
+            self.session.commit()
+
     def delete_feedback(self, query_id):
         feedback = self.get_feedback(query_id)
         if feedback:

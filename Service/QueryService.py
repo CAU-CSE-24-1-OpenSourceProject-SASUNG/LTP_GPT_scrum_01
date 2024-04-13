@@ -19,6 +19,12 @@ class QueryService:
     def get_all_query(self):
         return self.session.query(Query).all()
 
+    def update_query(self, query_id, feedback):
+        query = self.get_query(query_id)
+        if query:
+            query.feedback = feedback
+            self.session.commit()
+
     def delete_query(self, query_id):
         query = self.get_query(query_id)
         if query:

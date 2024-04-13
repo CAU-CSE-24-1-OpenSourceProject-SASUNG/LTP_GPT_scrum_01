@@ -17,7 +17,7 @@ class TotalFeedbackService:
         return self.session.query(Total_Feedback).all()
 
     def delete_totalFeedback(self, user_id):
-        total_feedbacks = self.get_totalFeedback(user_id)
-        if total_feedbacks:
-            self.session.delete(total_feedbacks)
+        total_feedback = self.get_totalFeedback(user_id)
+        if total_feedback:
+            self.session.delete(total_feedback)
             self.session.commit()
