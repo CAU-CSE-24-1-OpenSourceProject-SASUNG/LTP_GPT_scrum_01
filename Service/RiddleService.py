@@ -14,7 +14,7 @@ class RiddleService:
         return self.session.query(Riddle).filter_by(id=riddle_id).first()
 
     def get_all_riddle(self):
-        return self.session.query(Riddle)
+        return self.session.query(Riddle).all()
 
     def delete_riddle(self, riddle_id):
         riddle = self.get_riddle(riddle_id)

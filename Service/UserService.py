@@ -26,14 +26,13 @@ class UserService:
         user = self.get_user(user_id)
         if user:
             user_games = self.session.query(User_Game).filter_by(user_id=user.user_id).all()
-            total_feedback = self.session.query(Total_Feedback).filter_by(id=user.user_id).all()
+            total_feedback = self.session.query(Total_Feedback).filter_by(id=user.user_id).first()
 
             if user_games:
                 for user_game in user_games:
                     self.session.delete(user_game)
             if total_feedback:
-                for feedback in total_feedback:
-                    self.session.delete(feedback)
+                self.session.delete(total_feedback)
 
             self.session.delete(user)
             self.session.commit()

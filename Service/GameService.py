@@ -9,7 +9,6 @@ class GameService:
         game = Game(game_id=game_id, riddle_id=riddle_id, query_count=query_count, play_time=play_time,
                     query_length=query_length, hit=hit)
         user_game = User_Game(user_id=user_id, game_id=game_id)
-
         self.session.add(game)
         self.session.add(user_game)
         self.session.commit()
@@ -18,15 +17,19 @@ class GameService:
         return self.session.query(Game).filter_by(game_id=game_id).first()
 
     def get_all_game(self):
-        return self.session.query(Game)
+        return self.session.query(Game).all()
 
     def delete_game(self, game_id):
         game = self.get_game(game_id)
         if game:
-            user_games = self.session.query(User_Game).filter_by(game_id=game.game_id).all()
-            if user_games:
-                for user_game in user_games:
-                    self.session.delete(user_game)
+            user_game = self.session.query(User_Game).filter_by(game_id=game.game_id).first()
+            game_queries = self.session.query(Game_Query).filter_by(game_id=game.game_id).all()
+
+            if user_game:
+                self.session.delete(user_game)
+            if game_queries:
+                for game_query in game_queries:
+                    self.session.delete(game_query)
 
             self.session.delete(game)
             self.session.commit()

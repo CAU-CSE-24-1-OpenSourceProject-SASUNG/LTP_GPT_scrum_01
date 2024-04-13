@@ -51,7 +51,7 @@ class Riddle(Base):
 class Query(Base):
     __tablename__ = "queries"
 
-    id = Column(String(255), primary_key=True)
+    query_id = Column(String(255), primary_key=True)
     query = Column(String(255))
     response = Column(String(255))
     is_correct = Column(Boolean)
@@ -64,7 +64,7 @@ class Game_Query(Base):
     __tablename__ = "game_queries"
 
     game_id = Column(String(255), ForeignKey('games.game_id'), primary_key=True)
-    query_id = Column(String(255), ForeignKey('queries.id'), primary_key=True)
+    query_id = Column(String(255), ForeignKey('queries.query_id'), primary_key=True)
 
     query = relationship('Query', back_populates='game_query')
 
@@ -86,7 +86,7 @@ class Game(Base):
 class Feedback(Base):
     __tablename__ = "feedbacks"
 
-    id = Column(String(255), ForeignKey('queries.id'), primary_key=True)
+    query_id = Column(String(255), ForeignKey('queries.query_id'), primary_key=True)
     content = Column(String(255))
 
     query = relationship("Query", back_populates="feedback")
