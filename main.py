@@ -29,7 +29,9 @@ def get_current_user(token: str = Depends(oauth2_scheme)):
         google_id = idinfo.get("sub")
         return User(google_id=google_id)
     except ValueError as e:
-        raise HTTPException(status_code=401, detail=str(e))
+        raise HTTPException(status_code=401, detail="Token verification failed: " + str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail="Failed to fetch user information: " + str(e))
 
 @app.get("/")
 async def read_root():
@@ -37,7 +39,8 @@ async def read_root():
 
 @app.get("/login")
 async def login():
-    return RedirectResponse(url=f"https://accounts.google.com/o/oauth2/auth?response_type=code&client_id={GOOGLE_CLIENT_ID}&redirect_uri=http://localhost:8000/login/oauth2/code/google&scope=openid%20email%20profile")
+    return RedirectResponse(
+        url=f"https://accounts.google.com/o/oauth2/auth?response_type=code&client_id={GOOGLE_CLIENT_ID}&redirect_uri=http://localhost:8000/login/oauth2/code/google&scope=openid%20email%20profile")
 
 @app.get("/login/oauth2/code/google")
 async def callback(code: str):
