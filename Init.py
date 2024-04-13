@@ -3,6 +3,7 @@ from sqlalchemy import *
 from sqlalchemy.orm import relationship, sessionmaker
 
 # db연결 및 객체 베이스 생성
+# 'mysql_pymysql://db_id:db_password@dp_ip/dp_port'
 engine = create_engine('mysql+pymysql://root:gusdn4818@localhost/ossp', echo=True)
 Base = sqlalchemy.orm.declarative_base()
 
