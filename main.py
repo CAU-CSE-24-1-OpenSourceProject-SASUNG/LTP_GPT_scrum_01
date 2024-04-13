@@ -16,7 +16,7 @@ app = FastAPI()
 GOOGLE_CLIENT_ID = os.getenv("REACT_APP_GOOGLE_AUTH_CLIENT_ID")
 
 class User(BaseModel):
-    name: str
+    google_id: str
 
 oauth2_scheme = OAuth2AuthorizationCodeBearer(
     authorizationUrl=f"https://accounts.google.com/o/oauth2/auth?response_type=code&client_id={GOOGLE_CLIENT_ID}&redirect_uri=http://localhost:8000/login/oauth2/code/google&scope=openid%20email%20profile",
@@ -26,7 +26,8 @@ oauth2_scheme = OAuth2AuthorizationCodeBearer(
 def get_current_user(token: str = Depends(oauth2_scheme)):
     try:
         idinfo = id_token.verify_oauth2_token(token, requests.Request(), GOOGLE_CLIENT_ID)
-        return idinfo
+        google_id = idinfo.get("sub")
+        return User(google_id=google_id)
     except ValueError as e:
         raise HTTPException(status_code=401, detail=str(e))
 
@@ -44,11 +45,12 @@ async def callback(code: str):
     # we are just printing the tokens here, but in a real application
     # you would save these tokens in a database
     print(f"Received code: {code}")
-    return {"code": code}
+    # Redirect to profile after successful login
+    return RedirectResponse(url="/profile")
 
-@app.get("/profile", response_model=User)
+@app.get("/profile")
 async def profile(current_user: User = Depends(get_current_user)):
-    return current_user
+    return {"google_id": current_user.google_id}
 
 if __name__ == "__main__":
     import uvicorn
