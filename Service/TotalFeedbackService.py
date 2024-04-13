@@ -6,12 +6,12 @@ class TotalFeedbackService:
         self.session = session
 
     def create_totalFeedback(self, user_id, content):
-        total_feedback = Total_Feedback(id=user_id, content=content)
+        total_feedback = Total_Feedback(user_id=user_id, content=content)
         self.session.add(total_feedback)
         self.session.commit()
 
     def get_totalFeedback(self, user_id):
-        return self.session.query(Total_Feedback).filter_by(id=user_id).first()
+        return self.session.query(Total_Feedback).filter_by(user_id=user_id).first()
 
     def get_all_totalFeedback(self):
         return self.session.query(Total_Feedback).all()

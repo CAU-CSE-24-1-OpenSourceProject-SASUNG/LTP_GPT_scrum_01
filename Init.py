@@ -33,7 +33,7 @@ class User_Game(Base):
 class Total_Feedback(Base):
     __tablename__ = "total_feedbacks"
 
-    id = Column(String(255), ForeignKey('users.user_id'), primary_key=True)
+    user_id = Column(String(255), ForeignKey('users.user_id'), primary_key=True)
     content = Column(String(255))
 
     user = relationship("User", back_populates="total_feedback")
@@ -42,7 +42,7 @@ class Total_Feedback(Base):
 class Riddle(Base):
     __tablename__ = 'riddles'
 
-    id = Column(String(255), primary_key=True)
+    riddle_id = Column(String(255), primary_key=True)
     hit_ratio = Column(Float)
 
     games = relationship("Game")
@@ -73,7 +73,7 @@ class Game(Base):
     __tablename__ = 'games'
 
     game_id = Column(String(255), primary_key=True)
-    riddle_id = Column(String(255), ForeignKey('riddles.id'))
+    riddle_id = Column(String(255), ForeignKey('riddles.riddle_id'))
     query_count = Column(Integer)
     play_time = Column(Time)
     query_length = Column(Integer)

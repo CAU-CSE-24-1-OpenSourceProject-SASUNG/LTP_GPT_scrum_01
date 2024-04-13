@@ -6,12 +6,12 @@ class RiddleService:
         self.session = session
 
     def create_riddle(self, id, hit_ratio):
-        riddle = Riddle(id=id, hit_ratio=hit_ratio)
+        riddle = Riddle(riddle_id=id, hit_ratio=hit_ratio)
         self.session.add(riddle)
         self.session.commit()
 
     def get_riddle(self, riddle_id):
-        return self.session.query(Riddle).filter_by(id=riddle_id).first()
+        return self.session.query(Riddle).filter_by(riddle_id=riddle_id).first()
 
     def get_all_riddle(self):
         return self.session.query(Riddle).all()
@@ -25,7 +25,7 @@ class RiddleService:
     def delete_riddle(self, riddle_id):
         riddle = self.get_riddle(riddle_id)
         if riddle:
-            games = self.session.query(Game).filter_by(riddle_id=riddle.id).all()
+            games = self.session.query(Game).filter_by(riddle_id=riddle.riddle_id).all()
             if games:
                 for game in games:
                     user_game = self.session.query(User_Game).filter_by(game_id=game.game_id).first()
