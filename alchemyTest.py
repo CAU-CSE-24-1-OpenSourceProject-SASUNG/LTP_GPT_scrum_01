@@ -1,23 +1,89 @@
 import sqlalchemy
-from sqlalchemy import create_engine, Column, Integer, String, ForeignKey
-from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import *
 from sqlalchemy.orm import relationship, sessionmaker
 
 #db연결 및 객체 베이스 생성
-engine = create_engine('mysql://root:andandtlqk1!@localhost/osp', echo=True)
+engine = create_engine('mysql+pymysql://root:gusdn4818@localhost/ossp', echo=True)
 Base = sqlalchemy.orm.declarative_base()
-
-#테이블과 매칭될 객체 선언. tablename이 반드시 db내에 이미 존재하는 테이블의 이름이어야함. PK 조건도 같아야만 함. 변수 이름은 상관 없음
-class User(Base):
-    __tablename__ = 'users'
-
-    id = Column(Integer, primary_key=True)
-    name = Column(String)
-    email = Column(String)
 
 #Session 선언. Session을 이용하여 db를 조작 가능
 Session = sessionmaker(bind=engine)
 session = Session()
+
+class User(Base):
+    __tablename__ = 'users'
+
+    id = Column(String(255), primary_key=True)
+    email = Column(String(255))
+
+    user_games = relationship("User_Game")
+    total_feedback = relationship("Total_Feedback", uselist=false, back_populates='user')
+
+class User_Game(Base):
+    __tablename__ = 'user_games'
+
+    user_id = Column(String(255), ForeignKey('users.id'), primary_key=True)
+    game_id = Column(String(255), ForeignKey('games.id'), primary_key=True)
+
+    game = relationship('Game', back_populates='user_game')
+
+class Total_Feedback(Base):
+    __tablename__ = "total_feedbacks"
+
+    id = Column(String(255), ForeignKey('user_games.user_id'), primary_key=True)
+    content = Column(String(255))
+
+    user = relationship("User", back_populates="total_feedback")
+
+class Riddle(Base):
+    __tablename__ = 'riddles'
+
+    id = Column(String(255), primary_key=True)
+    hit_ratio = Column(Float)
+
+    games = relationship("Game")
+
+class Query(Base):
+    __tablename__ = "queries"
+
+    id = Column(String(255), primary_key=True)
+    query = Column(String(255))
+    response = Column(String(255))
+    is_correct = Column(Boolean)
+
+    game_query = relationship('Game_Query', uselist=false, back_populates='query')
+    feedback = relationship('Feedback', uselist=false, back_populates='query')
+
+class Game_Query(Base):
+    __tablename__ = "game_queries"
+
+    game_id = Column(String(255), ForeignKey('games.id'), primary_key=True)
+    query_id = Column(String(255), ForeignKey('queries.id'), primary_key=True)
+
+    query = relationship('Query', back_populates='game_query')
+
+class Game(Base):
+    __tablename__ = 'games'
+
+    id = Column(String(255), primary_key=True)
+    riddle_id = Column(String(255), ForeignKey('riddles.id'))
+    query_count = Column(Integer)
+    play_time = Column(Time)
+    query_length = Column(Integer)
+    hit = Column(Boolean)
+
+    game_queries = relationship("Game_Query")
+    user_game = relationship('Game', uselist=false, back_populates='game')
+
+class Feedback(Base):
+    __tablename__ = "feedbacks"
+
+    id = Column(String(255), ForeignKey('queries.id'), primary_key=True)
+    content = Column(String(255))
+
+    query = relationship("Query", back_populates="feedback")
+
+Base.metadata.create_all(engine)
 
 #insert
 '''
@@ -28,13 +94,13 @@ session.add(user2)
 session.commit() #db를 write하는 경우는 commit을 해줘야 실제 db에 반영이 됨
 '''
 
-#조회
-Johns = session.query(User).filter_by(name='John').all()
-
-print("------")
-for john in Johns :
-    print(john.id, john.name, john.email)
-print("------")
+# #조회
+# Johns = session.query(User).filter_by(name='John').all()
+#
+# print("------")
+# for john in Johns :
+#     print(john.id, john.name, john.email)
+# print("------")
 '''
 #update
 user = session.query(User).filter_by(name='potato').first()
