@@ -93,34 +93,3 @@ class Feedback(Base):
 
 
 Base.metadata.create_all(engine)
-
-# insert
-'''
-user = User(id = 22222, name='zeo', email='zeo@example.com')
-session.add(user)
-user2 = User(id = 33333, name='potato', email='potato@example.com')
-session.add(user2)
-session.commit() #db를 write하는 경우는 commit을 해줘야 실제 db에 반영이 됨
-'''
-
-# #조회
-# Johns = session.query(User).filter_by(name='John').all()
-#
-# print("------")
-# for john in Johns :
-#     print(john.id, john.name, john.email)
-# print("------")
-'''
-#update
-user = session.query(User).filter_by(name='potato').first()
-user.name = 'kyu'
-session.commit()
-'''
-
-# delete
-'''
-user = session.query(User).filter_by(name='zeo').first()
-session.delete(user)
-session.commit()
-#session.query(User).filter_by(name='John').delete() #이렇게 바로 사용도 가능하다
-'''
