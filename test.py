@@ -35,9 +35,9 @@ totalFeedbackService.create_totalFeedback(2, 'Hi')
 totalFeedbackService.create_totalFeedback(3, 'Bye')
 totalFeedbackService.create_totalFeedback(4, 'Huh')
 
-queryService.create_query(1, 'a', 'a', True)
-queryService.create_query(2, 'b', 'b', True)
-queryService.create_query(3, 'c', 'c', False)
+# queryService.create_query(1, 'a', 'a', True)
+# queryService.create_query(2, 'b', 'b', True)
+# queryService.create_query(3, 'c', 'c', False)
 
 # feedbackService.create_feedback(1, 'Good')
 # feedbackService.create_feedback(2, 'Bad')
