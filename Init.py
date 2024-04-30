@@ -1,3 +1,5 @@
+import uuid
+
 import sqlalchemy
 from sqlalchemy import *
 from sqlalchemy.orm import relationship, sessionmaker
@@ -52,7 +54,7 @@ class Riddle(Base):
 class Query(Base):
     __tablename__ = "queries"
 
-    query_id = Column(String(255), primary_key=True)
+    query_id = Column(String(255), primary_key=True, default=uuid.uuid4)
     query = Column(String(255))
     response = Column(String(255))
     is_correct = Column(Boolean)
@@ -73,7 +75,7 @@ class Game_Query(Base):
 class Game(Base):
     __tablename__ = 'games'
 
-    game_id = Column(String(255), primary_key=True)
+    game_id = Column(String(255), primary_key=True, default=uuid.uuid4)
     riddle_id = Column(String(255), ForeignKey('riddles.riddle_id'))
     query_count = Column(Integer)
     play_time = Column(Time)

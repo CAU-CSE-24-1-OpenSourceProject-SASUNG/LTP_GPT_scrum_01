@@ -16,11 +16,11 @@ class UserService:
     def get_all_user(self):
         return self.session.query(User).all()
 
-    def update_user(self, user_id, email):
-        user = self.get_user(user_id)
-        if user:
-            user.username = email
-            self.session.commit()
+    # def update_user(self, user_id, email):
+    #     user = self.get_user(user_id)
+    #     if user:
+    #         user.username = email
+    #         self.session.commit()
 
     def delete_user(self, user_id):
         user = self.get_user(user_id)

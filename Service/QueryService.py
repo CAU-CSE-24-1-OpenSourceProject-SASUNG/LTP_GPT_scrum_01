@@ -5,13 +5,15 @@ class QueryService:
     def __init__(self, session):
         self.session = session
 
-    def create_query(self, game_id, query_id, query, response, is_correct):
-        query = Query(query_id=query_id, query=query, response=response, is_correct=is_correct)
-        game_query = Game_Query(game_id=game_id, query_id=query_id)
-
+    def create_query(self, game_id, query, response, is_correct):
+        query = Query(query=query, response=response, is_correct=is_correct)
         self.session.add(query)
+        self.session.flush()
+
+        game_query = Game_Query(game_id=game_id, query_id=query.query_id)
         self.session.add(game_query)
         self.session.commit()
+
 
     def get_query(self, query_id):
         return self.session.query(Query).filter_by(query_id=query_id).first()
