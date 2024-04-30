@@ -29,8 +29,12 @@ class RiddleService:
             if games:
                 for game in games:
                     user_game = self.session.query(User_Game).filter_by(game_id=game.game_id).first()
+                    game_queries = self.session.query(Game_Query).filter_by(game_id=game.game_id).all()
                     if user_game:
                         self.session.delete(user_game)
+                    if game_queries:
+                        for game_query in game_queries:
+                            self.session.delete(game_query)
                     self.session.delete(game)
 
             self.session.delete(riddle)
