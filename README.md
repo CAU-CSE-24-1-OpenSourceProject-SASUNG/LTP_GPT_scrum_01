@@ -24,8 +24,4 @@ OPENAI_API_KEY=sk-...
 uvicorn main:app --reload
 ```
 =======
-# SQLalchemyTest
->>>>>>> 8a22fba (Initial commit)
-=======
-## game_id랑 query_id를 random 생성하는 코드인데 random 값이라 지금 어떤 user가 play를 하는지 / 어떤 game이 진행되고 있는지를 몰라서 실험은 못했음. 근데 아마 코드가 거의 동일해서 될 것 같음..
->>>>>>> 4cb3909 (Update README.md)
+main + BackEnd version.
