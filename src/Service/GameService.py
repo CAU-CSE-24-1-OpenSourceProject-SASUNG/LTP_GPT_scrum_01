@@ -1,4 +1,4 @@
-from Init import *
+from src.Init import *
 
 
 class GameService:
