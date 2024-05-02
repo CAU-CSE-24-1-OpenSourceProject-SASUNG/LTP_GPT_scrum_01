@@ -21,7 +21,7 @@ class User(Base):
     email = Column(String(255))
 
     user_games = relationship("User_Game")
-    total_feedback = relationship("Total_Feedback", uselist=False, back_populates='user')
+    total_feedback = relationship("Total_Feedback", uselist=False)
 
 
 class User_Game(Base):
@@ -30,16 +30,12 @@ class User_Game(Base):
     user_id = Column(String(255), ForeignKey('users.user_id'), primary_key=True)
     game_id = Column(String(255), ForeignKey('games.game_id'), primary_key=True)
 
-    game = relationship('Game', back_populates='user_game')
-
 
 class Total_Feedback(Base):
     __tablename__ = "total_feedbacks"
 
     user_id = Column(String(255), ForeignKey('users.user_id'), primary_key=True)
     content = Column(String(255))
-
-    user = relationship("User", back_populates="total_feedback")
 
 
 class Riddle(Base):
@@ -48,7 +44,7 @@ class Riddle(Base):
     riddle_id = Column(String(255), primary_key=True)
     hit_ratio = Column(Float)
 
-    games = relationship("Game")
+    games = relationship("Game", back_populates="riddle")
 
 
 class Query(Base):
@@ -59,7 +55,7 @@ class Query(Base):
     response = Column(String(255))
     is_correct = Column(Boolean)
 
-    game_query = relationship('Game_Query', uselist=False, back_populates='query')
+    game_query = relationship('Game_Query', uselist=False)
     feedback = relationship('Feedback', uselist=False, back_populates='query')
 
 
@@ -68,8 +64,6 @@ class Game_Query(Base):
 
     game_id = Column(String(255), ForeignKey('games.game_id'), primary_key=True)
     query_id = Column(String(255), ForeignKey('queries.query_id'), primary_key=True)
-
-    query = relationship('Query', back_populates='game_query')
 
 
 class Game(Base):
@@ -83,7 +77,8 @@ class Game(Base):
     hit = Column(Boolean)
 
     game_queries = relationship("Game_Query")
-    user_game = relationship('User_Game', uselist=False, back_populates='game')
+    user_game = relationship('User_Game', uselist=False)
+    riddle = relationship("Riddle", back_populates="games")
 
 
 class Feedback(Base):
@@ -92,7 +87,7 @@ class Feedback(Base):
     query_id = Column(String(255), ForeignKey('queries.query_id'), primary_key=True)
     content = Column(String(255))
 
-    query = relationship("Query", back_populates="feedback")
+    query = relationship("Query", uselist=False, back_populates="feedback")
 
 
 Base.metadata.create_all(engine)
