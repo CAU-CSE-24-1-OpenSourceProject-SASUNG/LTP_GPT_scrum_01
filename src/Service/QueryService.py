@@ -1,19 +1,17 @@
-from src.Init import *
+from Init import *
 
 
 class QueryService:
     def __init__(self, session):
         self.session = session
 
-    def create_query(self, game_id, query, response, is_correct):
-        query = Query(query=query, response=response, is_correct=is_correct)
-        self.session.add(query)
-        self.session.flush()
+    def create_query(self, game_id, query_id, query, response, is_correct):
+        query = Query(query_id=query_id, query=query, response=response, is_correct=is_correct)
+        game_query = Game_Query(game_id=game_id, query_id=query_id)
 
-        game_query = Game_Query(game_id=game_id, query_id=query.query_id)
+        self.session.add(query)
         self.session.add(game_query)
         self.session.commit()
-
 
     def get_query(self, query_id):
         return self.session.query(Query).filter_by(query_id=query_id).first()
@@ -21,10 +19,10 @@ class QueryService:
     def get_all_query(self):
         return self.session.query(Query).all()
 
-    def update_query(self, query_id, feedback):
+    def update_query(self, query_id, is_correct):
         query = self.get_query(query_id)
         if query:
-            query.feedback = feedback
+            query.is_correct = is_correct
             self.session.commit()
 
     def delete_query(self, query_id):

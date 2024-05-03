@@ -1,8 +1,8 @@
-import uuid
-
 import sqlalchemy
 from sqlalchemy import *
 from sqlalchemy.orm import relationship, sessionmaker
+
+# 이후에는 각 클래스를 사용할 수 있음
 
 # db연결 및 객체 베이스 생성
 # 'mysql_pymysql://db_id:db_password@dp_ip/dp_port'
@@ -12,7 +12,6 @@ Base = sqlalchemy.orm.declarative_base()
 # Session 선언. Session을 이용하여 db를 조작 가능
 Session = sessionmaker(bind=engine)
 session = Session()
-
 
 class User(Base):
     __tablename__ = 'users'
@@ -50,7 +49,7 @@ class Riddle(Base):
 class Query(Base):
     __tablename__ = "queries"
 
-    query_id = Column(String(255), primary_key=True, default=uuid.uuid4)
+    query_id = Column(String(255), primary_key=True)
     query = Column(String(255))
     response = Column(String(255))
     is_correct = Column(Boolean)
@@ -69,7 +68,7 @@ class Game_Query(Base):
 class Game(Base):
     __tablename__ = 'games'
 
-    game_id = Column(String(255), primary_key=True, default=uuid.uuid4)
+    game_id = Column(String(255), primary_key=True)
     riddle_id = Column(String(255), ForeignKey('riddles.riddle_id'))
     query_count = Column(Integer)
     play_time = Column(Time)

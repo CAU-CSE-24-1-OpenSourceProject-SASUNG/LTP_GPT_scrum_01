@@ -1,4 +1,4 @@
-from src.Init import *
+from Init import *
 
 
 class FeedbackService:

@@ -1,12 +1,12 @@
-from src.Init import *
+from Init import *
 
 
 class UserService:
     def __init__(self, session):
         self.session = session
 
-    def create_user(self, id, email):
-        user = User(user_id=id, email=email)
+    def create_user(self, user_id, email):
+        user = User(user_id=user_id, email=email)
         self.session.add(user)
         self.session.commit()
 
