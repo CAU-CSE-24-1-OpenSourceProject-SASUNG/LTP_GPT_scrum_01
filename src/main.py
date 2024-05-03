@@ -17,6 +17,8 @@ async def chat(request: Request):
         body = await request.json()
         question = body.get("question")
         response = ltp_gpt.evaluate_question(question)
+        if len(response) > 20:
+            response = "직접적인 질문에 대답해 드릴 수 없습니다"
         return JSONResponse(content={"response": response})
     except Exception as e:
         return JSONResponse(content={"error": str(e)}, status_code=500)
