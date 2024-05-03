@@ -62,7 +62,7 @@
 		},
 		{
 			"role": "assistant",
-			"content": "정확한 정답을 맞추셨습니다. 정답 코드: a99a80299be163d95b2000c99323dbcd01fb30a3156370a5297b8e2f19cfb585"
+			"content": "정확한 정답을 맞추셨습니다."
 		},
 		{
 			"role": "user",

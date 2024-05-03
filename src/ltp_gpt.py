@@ -69,7 +69,7 @@ def evaluate_question(question):
                 count += 1
         print("count : " + str(count))
         if count == 0:
-            return '상관없습니다'
+            return '문제의 정답과 상관이 없습니다.'
         else:
             message = messages + gpt_ans + [{"role": "user", "content": question}]
             response = openai.chat.completions.create(
