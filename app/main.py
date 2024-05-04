@@ -11,8 +11,7 @@ import app.ltp_gpt as ltp_gpt
 import secrets
 
 app = FastAPI()
-#app.add_middleware(SessionMiddleware, secret_key=SECRET_KEY, https_only=True, max_age=3600)
-app.add_middleware(SessionMiddleware, secret_key=SECRET_KEY)
+app.add_middleware(SessionMiddleware, secret_key=SECRET_KEY, https_only=True, max_age=3600)
 app.mount("/static", StaticFiles(directory = "static"), name = "static")
 
 oauth = OAuth()
@@ -23,8 +22,7 @@ oauth.register(
         client_secret = CLIENT_SECRET,
         client_kwargs={
             'scope': 'email openid profile',
-            #'redirect_url' : 'https://seaturtle.newpotatoes.org/auth'
-            'redirect_url' : 'http://localhost:8000/auth'
+            'redirect_url' : 'https://seaturtle.newpotatoes.org/auth'
             }
         )
 
