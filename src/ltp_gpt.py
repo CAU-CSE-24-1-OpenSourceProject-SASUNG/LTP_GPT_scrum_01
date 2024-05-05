@@ -15,7 +15,7 @@ def load_data(json_file):
 
 # JSON 파일 경로
 umbrella_data = load_data('./puzzles/umbrella.json')  # Umbrella 임베딩 / 프롬프팅
-listenling_data = load_data('./puzzles/listening.json') #  listening 임베딩 / 프롬프팅
+listening_data = load_data('./puzzles/listening.json') #  listening 임베딩 / 프롬프팅
 gpt_data = load_data('./puzzles/GPT_answer.json') # GPT 대답 말투 프롬프팅
 
 # 임베딩 string 가져오기
@@ -75,7 +75,7 @@ def evaluate_question(question):
             response = openai.chat.completions.create(
                     model="gpt-3.5-turbo",
                     messages=message,
-                    temperature=0.4,
+                    temperature=0.0,
                     top_p=0.5
                     )
             return response.choices[0].message.content
