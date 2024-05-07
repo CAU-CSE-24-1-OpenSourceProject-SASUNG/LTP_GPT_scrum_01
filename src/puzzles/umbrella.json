@@ -118,7 +118,63 @@
 		{
 			"role": "assistant",
 			"content": "모르겠습니다."
-		}
+		},
+        {
+            "role": "user",
+            "content": "우산하고 관련이 있어?"
+        },
+        {
+            "role": "assistant",
+            "content": "맞습니다."
+        },
+        {
+            "role": "user",
+            "content": "아이는 어려?"
+        },
+        {
+            "role": "assistant",
+            "content": "맞습니다."
+        },
+        {
+            "role": "user",
+            "content": "아이는 많이 어려?"
+        },
+        {
+            "role": "assistant",
+            "content": "맞습니다."
+        },
+        {
+            "role": "user",
+            "content": "아이는 우산을 안 들고 있어"
+        },
+        {
+            "role": "assistant",
+            "content": "아닙니다."
+        },
+        {
+            "role": "user",
+            "content": "우산은 무겁니?"
+        },
+        {
+            "role": "assistant",
+            "content": "아닙니다."
+        },
+        {
+            "role": "user",
+            "content": "바닥이 미끄럽니?"
+        },
+        {
+            "role": "assistant",
+            "content": "아닙니다."
+        },
+        {
+            "role": "user",
+            "content": "날씨가 중요한 정보야?"
+        },
+        {
+            "role": "assistant",
+            "content": "맞습니다."
+        }        
 	]
 }
 
