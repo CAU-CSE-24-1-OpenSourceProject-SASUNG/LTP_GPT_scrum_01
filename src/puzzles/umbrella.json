@@ -174,7 +174,15 @@
         {
             "role": "assistant",
             "content": "맞습니다."
-        }        
+        },
+        {
+            "role": "user",
+            "content": "아이는 10층에 살아?"
+        },
+        {
+            "role": "assistant",
+            "content": "맞습니다."
+        }
 	]
 }
 
